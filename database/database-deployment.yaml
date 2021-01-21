@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: database
   labels:
     app: database
 spec:
@@ -34,11 +34,11 @@ spec:
           - configMapRef:
               name: database-config
         env:
-          - name: MYSQL_ROOT_PASSWORD
+          - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: database-secret
-                key: MYSQL_ROOT_PASSWORD
+                key: MYSQL_PASSWORD
         ports:
           - containerPort: 3306
             name: mysql
