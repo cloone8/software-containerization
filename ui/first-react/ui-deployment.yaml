@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: first-react-app
-        image: docker.io/library/first-react-app:latest
-        imagePullPolicy: Never
+        image: localhost:32000/ui:v2
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
