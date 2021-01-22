@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: first-react-app
-        image: localhost:32000/ui:v2
+        image: localhost:32000/ui:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 80
