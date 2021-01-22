@@ -21,7 +21,7 @@ class QuoteAdd extends React.Component {
         return (
             <div>
                 <button onClick={this.handleClick}>
-                    Click me
+                    Add the booksq
                 </button>
 
                 <Contacts contacts={this.state.contacts} />
