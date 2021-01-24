@@ -14,7 +14,7 @@ ma = Marshmallow(app)
 
 # set up ORM
 
-class Quote(db.Model):
+class QuoteModel(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255))
@@ -22,7 +22,7 @@ class Quote(db.Model):
     def __repr__(self):
         return '<Quote: %s>' % self.content
 
-class Comment(db.Model):
+class CommentModel(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255))
@@ -39,47 +39,20 @@ class CommentSchema(ma.SQLAlchemyAutoSchema):
         model = Comment
 
 quote_schema = QuoteSchema()
-commend_schema = CommentSchema()
+comment_schema = CommentSchema()
 
 # establish what resources the API can be used with
 
-class QuoteResource(Resource):
-    #GET w/ ID: gets quote with ID, or 404 otherwise
-    def get(self, uid):
-        quote = Quote.query.get_or_404(uid)
-        return quote_schema.dump(quote)
-
-    #POST: adds new quote to database
-    def post(self):
-        new_quote = Quote(
-                content=request.json['content'],
-                author=request.json['author']
-                )
-            db.session.add(new_quote)
-            db.session.commit()
-            return quote_schema.dump(new_quote)
-
-    #PUT: updates quote at id or 404 otherwise
-    def put(self, uid):
-        quote = Quote.query.get_or_404(uid)
-
-        if 'content' in request.json:
-            quote.content = request.json['content']
-        if 'author' in request.json:
-            quote.author = request.json['author']
-
-        db.session.commit()
-        return post_schema.dump(quote)
-
-    #DELETE: removes quote at id
-    def delete(self, uid):
-        quote = Quote.query.get_or_404(uid)
-        db.session.delete(quote)
-        db.session.commit()
-        return '', 204
-
 api.add_resource(Quote, '/quote', '/quote/<string:uid>')
 api.add_resource(Comment, '/comment', '/comment/<string:uid>')
+
+# this is terrible but create_all() is idempotent afaik and the alternative
+# is setting up alembic and flask-migrate and that's ludicrous overkill
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
