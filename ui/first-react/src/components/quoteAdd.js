@@ -1,5 +1,4 @@
 import React from 'react';
-import Contacts from './contacts';
 import Quotes from './quotes';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -9,48 +8,70 @@ class QuoteAdd extends React.Component {
 
     handleClick = () => {
         console.log('this is:', this);
-        if (this.state.newQuote === "") {
-            this.state.errorText = "Empty quote";
-        } else {
-            this.state.errorText = "";
+        this.state.quoteErrorText = "";
+        this.state.quoteAuthorText = "";
+        if (this.state.newQuote.quote === "") {
+            this.state.quoteErrorText = "Empty quote";
+        } 
+        if (this.state.newQuote.author === "") {
+            this.state.quoteAuthorText = "Empty author";
+        }
+        if (this.state.newQuote.quote !== "" && this.state.newQuote.author !== "") {
+            this.state.quoteErrorText = "";
+            this.state.quoteAuthorText = "";
             this.state.quotes.push(this.state.newQuote);
         }
-        console.log('state:', this.state);
+        
+        // console.log('state:', this.state);
         fetch('http://jsonplaceholder.typicode.com/users')
         .then(res => res.json())
         .then((data) => {
             this.setState({ contacts: data })
-        }).catch(console.log)
+        }).catch(console.log);
     }
 
     state = {
         contacts: [],
         quotes: [],
-        newQuote: "",
-        errorText: ""
+        newQuote: {
+            quote: '',
+            author: ''
+        },
+        quoteErrorText: '',
+        quoteAuthorText: '',
     };
 
-    createQuote = (e) => {
-        this.setState({newQuote: e.target.value})
-        // this.state.newQuote.push(e.target.value);
+    setQuote = (e) => {
+        this.state.newQuote.quote = e.target.value;
+    }
+
+    setAuthor = (e) => {
+        this.state.newQuote.author = e.target.value;
     }
 
     render() {
         return (
             <div>
-                <center>
+                <screenLeft>
                 <Button variant="contained" color="primary" onClick={this.handleClick}>Add quote to database</Button>
                     <TextField
                         id="create-quote"
                         label="New Quote"
                         variant="filled"
-                        onChange={this.createQuote}
-                        error={this.state.errorText.length === 0 ? false : true }
-                        helperText={this.state.errorText} />
+                        onChange={this.setQuote}
+                        error={this.state.quoteErrorText.length === 0 ? false : true }
+                        helperText={this.state.quoteErrorText} />
 
-                {/* <Contacts contacts={this.state.contacts} /> */}
+                    <TextField
+                        id="quote-author"
+                        label="Author"
+                        variant="filled"
+                        onChange={this.setAuthor}
+                        error={this.state.quoteAuthorText.length === 0 ? false : true}
+                        helperText={this.state.quoteAuthorText} />
+
                 <Quotes quotes={this.state.quotes} />
-                </center>
+                </screenLeft>
             </div>
         );
     }
