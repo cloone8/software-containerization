@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui-config
+  labels:
+    app: quote-react-app
+data:

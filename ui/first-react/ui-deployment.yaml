@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quote-react-deployment
+  labels:
+    app: quote-react-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quote-react-app
+  template:
+    metadata:
+      labels:
+        app: quote-react-app
+    spec:
+      containers:
+      - name: quote-react-app
+        image: localhost:32000/ui:v3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
