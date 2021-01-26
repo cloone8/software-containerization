@@ -5,4 +5,3 @@ metadata:
   labels:
     app: quote-react-app
 data:
-  REST_API_URL: 'https://localhost:1234'

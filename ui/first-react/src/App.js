@@ -18,6 +18,7 @@ class App extends Component {
     render() {
         return (
             <div>
+                <script src="%PUBLIC_URL%/config.js"></script>
                 <Navbar />
                 <Router>
                     <Route path="/add" component={QuoteAdd} />

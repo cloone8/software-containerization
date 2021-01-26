@@ -12,7 +12,7 @@ class CommentAdd extends React.Component {
         // addQuote.quote = this.state.currentQuote;
         // addQuote.auth = this.state.currentAuthor;
         this.state.quotes.push(addQuote);
-        console.log(this.state.quotes);
+        console.log(window.REST_API_URL);
 
         fetch('http://jsonplaceholder.typicode.com/users')
             .then(res => res.json())
