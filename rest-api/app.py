@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request
-from flask-restful import Api, Resource
+from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -9,8 +9,9 @@ from flask_marshmallow import Marshmallow
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DB_URI')
 
-db = SQLALchemy(app)
+db = SQLAlchemy(app)
 ma = Marshmallow(app)
+api = Api(app)
 
 # set up ORM
 
@@ -26,7 +27,7 @@ class Comment(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255))
-    date = db.Column((db.DateTime, nullable=False))
+    date = db.Column(db.DateTime, nullable=False)
 
 # set up schemas for serialization/deserialization
 
@@ -55,9 +56,9 @@ class QuoteResource(Resource):
                 content=request.json['content'],
                 author=request.json['author']
                 )
-            db.session.add(new_quote)
-            db.session.commit()
-            return quote_schema.dump(new_quote)
+        db.session.add(new_quote)
+        db.session.commit()
+        return quote_schema.dump(new_quote)
 
     #PUT: updates quote at id or 404 otherwise
     def put(self, uid):
