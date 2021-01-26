@@ -22,7 +22,7 @@ class QuoteAdd extends React.Component {
             this.state.quotes.push(this.state.newQuote);
         }
         
-        // console.log('state:', this.state);
+        console.log('state:', this.state.quotes);
         fetch('http://jsonplaceholder.typicode.com/users')
         .then(res => res.json())
         .then((data) => {
@@ -70,6 +70,7 @@ class QuoteAdd extends React.Component {
                         error={this.state.quoteAuthorText.length === 0 ? false : true}
                         helperText={this.state.quoteAuthorText} />
 
+                <h1>Quote List</h1>
                 <Quotes quotes={this.state.quotes} />
                 </screenLeft>
             </div>

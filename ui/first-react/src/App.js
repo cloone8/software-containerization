@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import QuoteAdd from './components/quoteAdd'
+import QuoteAdd from './components/quoteAdd';
+import CommentAdd from './components/commentAdd';
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { redirectRoutes } from "./routers.js";
@@ -19,14 +20,9 @@ class App extends Component {
             <div>
                 <Navbar />
                 <Router>
-                    <Route path="/nav" component={Navbar} />
-                    <Route path="/home" component={QuoteAdd} />
+                    <Route path="/add" component={QuoteAdd} />
+                    <Route path="/comment" component={CommentAdd} />
                 </Router>
-
-                {/* <Route path="/about">
-                    <Navbar />
-                    <QuoteAdd />
-                </Route> */}
             </div>
         )
     }

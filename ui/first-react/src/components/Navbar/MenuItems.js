@@ -1,12 +1,12 @@
 export const MenuItems = [
     {
         title: 'Add quotes',
-        url: '/home',
+        url: '/add',
         cName: 'nav-links'
     },
     {
         title: 'Comment on quotes',
-        url: '/nav',
+        url: '/comment',
         cName: 'nav-links'
     },
     // {
