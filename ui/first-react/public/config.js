@@ -1,1 +1,1 @@
-window.REST_API_URL = 'https://localhost:1234';
+window.REST_API_URL = 'http://localhost:1234';
