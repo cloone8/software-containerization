@@ -1,7 +1,7 @@
 import datetime
 from . import db
 
-class QuoteModel(db.Model):
+class Quote(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255))

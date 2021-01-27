@@ -11,6 +11,9 @@ pymysql = "*"
 flask-sqlalchemy = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+flask-migrate = "*"
+flask-cors = "*"
+flask-script = "*"
 
 [dev-packages]
 

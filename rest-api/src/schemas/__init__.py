@@ -1,3 +1,3 @@
-from flask-marshmallow import Marshmallow
+from .quote import QuoteSchema
 
-ma = Marshmallow()
+quote_schema = QuoteSchema()

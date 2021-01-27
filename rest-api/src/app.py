@@ -1,10 +1,13 @@
 from flask import Flask
-from flask-restful import Api, Resource
-from flask-cors import CORS
+from flask_restful import Api, Resource
+from flask_cors import CORS
+from flask_migrate import Migrate
 from .config import app_config
 from .models import db
-from .schemas import ma, QuoteSchema
-from .resources import api, Quote, Quotes
+from .resources import api
+from .resources.QuoteResource import QuoteResource
+
+migrate = Migrate()
 
 def create_app(env_name):
     # initialize Flask and libraries
@@ -13,17 +16,16 @@ def create_app(env_name):
     app.config.from_object(app_config[env_name])
     
     CORS(app)
-
     db.init_app(app)
-    ma.init_app(app
-
-    # gotta do this here to get marshmallow-sqlalchemy to work
-    global quote_schema
-    quote_schema = QuoteSchema()
 
     # establish what resources the API can be used with
 
-    api.add_resource(Quote, '/quote', '/quote/<string:uid>')
-    api.add_resource(Quotes, '/quotes')
+    api.add_resource(QuoteResource, '/quote', '/quote/<string:uid>')
+    #api.add_resource(Quotes, '/quotes')
+
+    from .models.QuoteModel import Quote
+
+    api.init_app(app)
+    migrate.init_app(app, db)
 
     return app
