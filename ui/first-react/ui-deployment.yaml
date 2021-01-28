@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: quote-react-app
-        image: localhost:32000/ui:v3
+        image: lordoverkirk/quotable:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 80
