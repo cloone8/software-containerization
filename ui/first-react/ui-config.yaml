@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ui-config
+  name: ui-config-map
   labels:
     app: quote-react-app
 data:
+  REST_API_URL: "http://localhost:2345"
+  REST_API_URL2: "http://localhost:3456"
