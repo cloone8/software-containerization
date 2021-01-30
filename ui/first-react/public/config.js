@@ -1,0 +1,1 @@
+window.REST_API_URL = 'http://localhost:1234';

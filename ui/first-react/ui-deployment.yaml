@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quote-react-deployment
+  labels:
+    app: quote-react-app
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: quote-react-app
+  template:
+    metadata:
+      labels:
+        app: quote-react-app
+    spec:
+      containers:
+      - name: quote-react-app
+        env:
+          - name: REST_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: ui-config-map
+                key: REST_API_URL
+          - name: REACT_APP_REST_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: ui-config-map
+                key: REST_API_URL2
+        image: lordoverkirk/quotable:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
