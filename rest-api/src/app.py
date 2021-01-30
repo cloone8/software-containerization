@@ -6,6 +6,7 @@ from .config import app_config
 from .models import db
 from .resources import api
 from .resources.QuoteResource import QuoteResource
+from .resources.QuotesResource import QuotesResource
 
 migrate = Migrate()
 
@@ -20,8 +21,8 @@ def create_app(env_name):
 
     # establish what resources the API can be used with
 
-    api.add_resource(QuoteResource, '/quote', '/quote/<string:uid>')
-    #api.add_resource(Quotes, '/quotes')
+    api.add_resource(QuoteResource, '/quote/', '/quote', '/quote/<string:uid>')
+    api.add_resource(QuotesResource, '/quotes/', '/quotes')
 
     from .models.QuoteModel import Quote
 

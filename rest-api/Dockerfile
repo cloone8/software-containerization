@@ -1,9 +1,17 @@
 FROM python:3.7-alpine
-RUN mkdir app
+
+MAINTAINER Fiachra O Cochlain "focochlain@gmail.com"
+
+COPY ./requirements.txt /app/requirements.txt
+
 WORKDIR /app
-COPY . .
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
+
 RUN pip3 install -r requirements.txt
+
+COPY ./
+
+COPY ./src /app/src
+
 EXPOSE 5000
+
 CMD ["flask", "run"]
