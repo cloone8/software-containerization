@@ -29,6 +29,10 @@ class QuoteResource(Resource):
             quote_update.content = request.json['content']
         if 'author' in request.json:
             quote_update.author = request.json['author']
+        if 'createdAt' in request.json:
+            quote_update.createdAt = request.json['createdAt']
+        if 'modifiedAt' in request.json:
+            quote_update.modifiedAt = request.json['modifiedAt']
 
         db.session.commit()
         return quote_schema.dump(quote_update), 205

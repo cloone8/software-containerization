@@ -1,7 +1,7 @@
 import datetime
 from . import db
 
-class Quote(db.Model):
+class Comment(db.Model):
     uid = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255))
@@ -9,4 +9,5 @@ class Quote(db.Model):
     modifiedAt = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<Quote: %s>' % self.content
+        return '<Comment: %s>' % self.content
+

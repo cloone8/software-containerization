@@ -1,11 +1,11 @@
 from marshmallow import Schema, fields, ValidationError
-from ..models import db, QuoteModel
+from ..models import db, CommentModel
 
 def must_not_be_blank(data):
     if not data:
         raise ValidationError("Field not provided")
 
-class QuoteSchema(Schema):
+class CommentSchema(Schema):
     uid = fields.Int(dump_only=True)
     content = fields.Str(required=True, validate=must_not_be_blank)
     author = fields.Str(required=True, validate=must_not_be_blank)
