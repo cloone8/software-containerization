@@ -19,15 +19,19 @@ class QuoteAdd extends React.Component {
         if (this.state.newQuote.quote !== "" && this.state.newQuote.author !== "") {
             this.state.quoteErrorText = "";
             this.state.quoteAuthorText = "";
-            this.state.quotes.push(this.state.newQuote);
+            // this.state.quotes.push(this.state.newQuote);
         }
         
-        console.log('state:', this.state.quotes);
-        fetch('http://jsonplaceholder.typicode.com/users')
-        .then(res => res.json())
-        .then((data) => {
-            this.setState({ contacts: data })
-        }).catch(console.log);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: this.state.newQuote.quote,
+                                   author: this.state.newQuote.author })
+        };
+        fetch('http://127.0.0.1:4321/quote', requestOptions)
+            .then(response => response.json())
+            .then(data => this.setState({ postId: data.id }))
+            .catch(console.log);
     }
 
     state = {

@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quote-react-app
+  name: quote-react-appv2
   labels:
     app: quote-react-app
 spec:
-  replicas: 4
+  replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
@@ -14,13 +14,11 @@ spec:
     metadata:
       labels:
         app: quote-react-app
-        version: v1.0.0
+        version: v2.0.0
     spec:
       containers:
       - name: quote-react-app
         env:
-          - name: VERSION
-            value: v1.0.0
           - name: REST_API_URL
             valueFrom:
               configMapKeyRef:
@@ -31,7 +29,7 @@ spec:
               configMapKeyRef:
                 name: ui-config-map
                 key: REST_API_URL2
-        image: lordoverkirk/quotable:v1
+        image: lordoverkirk/quotable:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 80

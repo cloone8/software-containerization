@@ -2,6 +2,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: quote-react-app
+  labels:
+    app: quote-react-app
 spec:
   type: LoadBalancer
   ports:
