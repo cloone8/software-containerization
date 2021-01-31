@@ -4,6 +4,9 @@ sleep 10;
 
 echo "Begininng DB setup..."
 
-(python manage.py db init 2>&1)
-(python manage.py db migrate 2>&1)
-(python manage.py db upgrade 2>&1)
+if (python manage.py db upgrade 2>&1) ;  then
+	echo "Successfully setup DB!"
+else
+	echo "DB setup failed, dropping to shell..."
+	exec /bin/ash
+fi
