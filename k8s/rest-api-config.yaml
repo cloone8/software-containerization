@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rest-api-config
+  labels:
+    app: quotebook-rest-api
+data:
+  PORT: "8080"
+  DB_HOST: "database"
+  DB_DATABASE: "quotes"
+  DB_USER: "rest"

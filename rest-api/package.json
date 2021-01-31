@@ -1,0 +1,19 @@
+{
+    "name": "quotebook-rest-api",
+    "version": "0.1.0",
+    "description": "Small rest API to support quotebook",
+    "author": "Jari Maijenburg <jari.maijenburg@hinq.nl>",
+    "license": "UNLICENSED",
+    "main": "dist/app.js",
+    "private": true,
+    "scripts": {
+        "start": "node src/app.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "mysql2": "2.2.5",
+        "winston": "^3.3.3",
+        "body-parser": "1.19.0"
+    },
+    "devDependencies": {}
+}
