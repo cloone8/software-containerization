@@ -5,7 +5,7 @@ metadata:
   labels:
     app: rest-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: rest-api
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: rest-api
-          image: focochlain/rest-api:v1.0
+          image: focochlain/rest-api:v1.1
           env:
             - name: FLASK_ENV
               value: "production"
