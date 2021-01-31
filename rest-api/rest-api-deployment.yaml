@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: rest-api
-          image: focochlain/rest-api:v1.1
+          image: focochlain/rest-api:v1.1a
           env:
             - name: FLASK_ENV
               value: "production"
