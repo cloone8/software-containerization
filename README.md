@@ -45,6 +45,12 @@ In order for the application to work properly, these two domains have to be adde
 both HTTP and HTTPS have to be port forwarded (port 80 and 443).
 
 
+## Upgrading the application
+
+To upgrade the application with a rolling deployment, simply update the deployment YAML script for the deployment you wish to update with the new container image, then apply it. To upgrade the application with a canary deployment, you must define a new YAML with the same details as the old deployment, but with a different label and image. Scale the old and new deployments according to the ratio you desire, then apply the new deployment. Incoming requests will be routed to the new deployment based on the ratio of old to new. 
+
+Rollback of updates can be applied similarly; simply edit the YAML script to point at the old image and apply it.
+
 ## Uninstalling the application
 
 If the application was installed using the Helm chart, uninstalling is as easy as getting the installation name using `helm3 ls`, and then uninstalling using `helm3 uninstall {NAME}`.
