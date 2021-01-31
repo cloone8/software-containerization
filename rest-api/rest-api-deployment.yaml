@@ -15,7 +15,15 @@ spec:
         app: rest-api
     spec:
       containers:
-        - name: rest-api-container
-          image: --todo
+        - name: rest-api
+          image: localhost:32000/test-api:latest
+          env:
+            - name: FLASK_ENV
+              value: "production"
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: rest-api-secret
+                  key: DB_URI
           ports:
-          - containerPort: 5000
+          - containerPort: 80
