@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-api-deployment
+  labels:
+    app: quotebook-rest-api
+spec:
+  replicas: {{ .Values.replicaCountApi }}
+  selector:
+    matchLabels:
+      app: quotebook-rest-api
+  template:
+    metadata:
+      labels:
+        app: quotebook-rest-api
+    spec:
+      containers:
+        - name: rest-api
+          image: focochlain/rest-api:v1.0
+          env:
+            - name: FLASK_ENV
+              value: "production"
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: rest-api-secret
+                  key: DB_URI
+          ports:
+          - containerPort: 80
