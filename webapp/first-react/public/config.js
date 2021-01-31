@@ -1,0 +1,1 @@
+window.REST_API_URL = 'api.quotbook.io';

@@ -84,6 +84,9 @@ function initEndpoints(app) {
     app.get('/test', (req, res) => res.send('Hello World!'));
 
     app.use('/quote', quoteEndpoints());
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
 }
 
 async function startService() {
