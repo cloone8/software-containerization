@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+  labels:
+    app: quotebook-database
+data:
+  MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+  MYSQL_DATABASE: "quotes"
+  MYSQL_USER: "rest"

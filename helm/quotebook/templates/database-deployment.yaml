@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  labels:
+    app: quotebook-database
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: quotebook-database
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quotebook-database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: quotebook-database
+    spec:
+      containers:
+      - image: mysql:8.0.23
+        name: database
+        envFrom:
+          - configMapRef:
+              name: database-config
+        env:
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: MYSQL_PASSWORD
+        ports:
+          - containerPort: 3306
+            name: mysql
+        volumeMounts:
+          - name: db-file
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: db-file
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim

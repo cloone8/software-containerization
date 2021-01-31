@@ -1,0 +1,6 @@
+# Default values for quotebook.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCountApi: 1
+replicaCountWebApp: 1
