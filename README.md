@@ -1,1 +1,44 @@
-# software-containerization
+# Quotebook
+
+## Sources
+
+The kubernetes config files can be found under the k8s folder, with the filenames refering to one of the three services.
+The actual application source code can be found in either the rest-api folder or the webapp folder, depending on which application you want to inspect.
+
+## Building
+
+The Quotebook app makes use of three images, of which two are custom.
+
+### Building the REST API
+
+Navigate to the rest-api folder, and enter `docker build .` to build the image. Keep in mind this will not
+update the image running in the kubernetes cluster, as they pull an image uploaded to docker hub.
+
+### Building the WebApp
+
+Navigate to the webapp/first-react folder, and enter `docker build .` to build the image. Keep in mind this will not
+update the image running in the kubernetes cluster, as they pull an image uploaded to docker hub.
+
+## Application Management
+
+## Deploying the application
+
+Deploying the application can be done in one of two ways:
+
+1. Deploying the helm package located at helm/quotebook-1.0.0.tgz
+2. Deploying all the YAML files in the k8s folder
+
+The first method is faster to install and uninstall, while the second method allows
+for more customisability.
+
+The Helm chart also allows some basic configuration in the amount of replicas of the webapp and rest-api, if one desires.
+The default is set to one of each, but if you create a custom yaml file and pass that along as a parameter to `helm3 install -f {custom_config_yaml}` then
+you can influence the amount of replicas by setting the "replicaCountApi" and "replicaCountWebApp" keys to a custom value.
+
+## Uninstalling the application
+
+If the application was installed using the Helm chart, uninstalling is as easy as getting the installation name using `helm3 ls`, and then uninstalling using `helm3 uninstall {NAME}`.
+
+If the application was manually deployed, one must manually remove all the yaml files from the cluster with `kubectl delete -f`, followed by each resource.
+
+## Upgrading the application
