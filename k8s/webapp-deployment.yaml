@@ -18,19 +18,6 @@ spec:
     spec:
       containers:
       - name: quote-react-app
-        env:
-          - name: VERSION
-            value: v1.0.0
-          - name: REST_API_URL
-            valueFrom:
-              configMapKeyRef:
-                name: ui-config-map
-                key: REST_API_URL
-          - name: REACT_APP_REST_API_URL
-            valueFrom:
-              configMapKeyRef:
-                name: ui-config-map
-                key: REST_API_URL2
         image: lordoverkirk/quotable:v1
         imagePullPolicy: Always
         ports:
