@@ -44,10 +44,15 @@ Furthermore, it requires the use of the hostnames
 In order for the application to work properly, these two domains have to be added to the /etc/hosts file and redirected to the cluster. If port forwarding to a VM, keep in mind that
 both HTTP and HTTPS have to be port forwarded (port 80 and 443).
 
-
 ## Upgrading the application
 
-To upgrade the application with a rolling deployment, simply update the deployment YAML script for the deployment you wish to update with the new container image, then apply it. To upgrade the application with a canary deployment, you must define a new YAML with the same details as the old deployment, but with a different label and image. Scale the old and new deployments according to the ratio you desire, then apply the new deployment. Incoming requests will be routed to the new deployment based on the ratio of old to new. 
+To upgrade the application with a rolling deployment, simply update the deployment YAML script for the deployment you wish to update with the new container image, then apply it. To upgrade the application with a canary deployment, you must define a new YAML with the same details as the old deployment, but with a different label and image. Scale the old and new deployments according to the ratio you desire, then apply the new deployment. Incoming requests will be routed to the new deployment based on the ratio of old to new.
+
+For testing a canary deployment, we changed line 84 of rest-api/src/app.js to respond "Hello World V2!" in order to signify the different REST api, and then tested it by calling https://api.quotebook.io/test
+
+This should result in a different response based on which version of the rest-api you are running.
+
+An already upgraded image can be found under cloone8/quotebook-rest-api:v2
 
 Rollback of updates can be applied similarly; simply edit the YAML script to point at the old image and apply it.
 
@@ -56,5 +61,3 @@ Rollback of updates can be applied similarly; simply edit the YAML script to poi
 If the application was installed using the Helm chart, uninstalling is as easy as getting the installation name using `helm3 ls`, and then uninstalling using `helm3 uninstall {NAME}`.
 
 If the application was manually deployed, one must manually remove all the yaml files from the cluster with `kubectl delete -f`, followed by each resource.
-
-## Upgrading the application
