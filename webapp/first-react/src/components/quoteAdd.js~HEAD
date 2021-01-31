@@ -26,10 +26,9 @@ class QuoteAdd extends React.Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: this.state.newQuote.quote,
-                                   author: this.state.newQuote.author }),
-            mode: '*cors'
+                                   author: this.state.newQuote.author })
         };
-        fetch(window.REST_API_URL, requestOptions)
+        fetch('http://127.0.0.1:4321/quote', requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ postId: data.id }))
             .catch(console.log);
