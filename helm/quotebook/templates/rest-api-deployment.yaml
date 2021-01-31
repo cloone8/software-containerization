@@ -1,29 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: rest-api
+  labels:
+    app: quotebook-rest-api
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: quotebook-rest-api
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rest-api-deployment
-  labels:
-    app: quotebook-rest-api
 spec:
   replicas: {{ .Values.replicaCountApi }}
   selector:
     matchLabels:
       app: quotebook-rest-api
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: quotebook-rest-api
     spec:
       containers:
-        - name: rest-api
-          image: focochlain/rest-api:v1.1
-          env:
-            - name: FLASK_ENV
-              value: "production"
-            - name: DB_URI
-              valueFrom:
-                secretKeyRef:
-                  name: rest-api-secret
-                  key: DB_URI
-          ports:
-          - containerPort: 80
+      - image: cloone8/quotebook-rest-api:v1
+        imagePullPolicy: Always
+        name: rest-api
+        envFrom:
+          - configMapRef:
+              name: rest-api-config
+        env:
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: rest-api-secret
+                key: DB_PASS
+        ports:
+          - containerPort: 8080
+            name: api
