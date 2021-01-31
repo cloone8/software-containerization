@@ -5,10 +5,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - www.quotable.io
+      - www.quotebook.io
     secretName: webapp-tls
   rules:
-  - host: www.quotable.io
+  - host: www.quotebook.io
     http:
       paths:
       - path: /

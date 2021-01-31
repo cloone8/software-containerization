@@ -5,10 +5,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - api.quotable.io
+      - api.quotebook.io
     secretName: rest-api-tls
   rules:
-  - host: api.quotable.io
+  - host: api.quotebook.io
     http:
       paths:
       - path: /
