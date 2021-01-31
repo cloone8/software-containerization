@@ -35,6 +35,16 @@ The Helm chart also allows some basic configuration in the amount of replicas of
 The default is set to one of each, but if you create a custom yaml file and pass that along as a parameter to `helm3 install -f {custom_config_yaml}` then
 you can influence the amount of replicas by setting the "replicaCountApi" and "replicaCountWebApp" keys to a custom value.
 
+### The ingress
+
+The running of this application requires running an ingress.
+Furthermore, it requires the use of the hostnames
+`api.quotebook.io` and `www.quotebook.io`.
+
+In order for the application to work properly, these two domains have to be added to the /etc/hosts file and redirected to the cluster. If port forwarding to a VM, keep in mind that
+both HTTP and HTTPS have to be port forwarded (port 80 and 443).
+
+
 ## Uninstalling the application
 
 If the application was installed using the Helm chart, uninstalling is as easy as getting the installation name using `helm3 ls`, and then uninstalling using `helm3 uninstall {NAME}`.
