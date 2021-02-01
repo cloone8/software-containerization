@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('./config');
 const mysql = require('mysql2/promise');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 var db;
 
@@ -84,15 +85,14 @@ function initEndpoints(app) {
     app.get('/test', (req, res) => res.send('Hello World!'));
 
     app.use('/quote', quoteEndpoints());
-
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
 }
 
 async function startService() {
     const app = express();
 
-    app.use(bodyParser.json())
+    app.use(bodyParser.json());
+    app.use(cors({origin: "https://www.quotebook.io"}));
+
     db = await mysql.createConnection({
         host: config.db_host,
         user: config.db_user,
