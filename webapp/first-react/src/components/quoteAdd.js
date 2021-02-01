@@ -26,13 +26,28 @@ class QuoteAdd extends React.Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: this.state.newQuote.quote,
-                                   author: this.state.newQuote.author }),
-            mode: '*cors'
+                                   author: this.state.newQuote.author })
         };
-        fetch(window.REST_API_URL, requestOptions)
+        fetch(window.REST_API_URL + 'quote/', requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ postId: data.id }))
             .catch(console.log);
+
+        var quotes;
+        const getQuotes = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(window.REST_API_URL + 'quote/', getQuotes)
+            .then(response => response.json())
+            .then(data => this.setState({ quotes: data }),)
+            .then(
+                () => console.log(quotes),
+                
+                console.log("bla"),
+                console.log("state: " + this.state.quotes)
+            );
+
     }
 
     state = {
@@ -52,6 +67,10 @@ class QuoteAdd extends React.Component {
 
     setAuthor = (e) => {
         this.state.newQuote.author = e.target.value;
+    }
+
+    delete() {
+        console.log("delete");
     }
 
     render() {
@@ -80,6 +99,16 @@ class QuoteAdd extends React.Component {
                 </screenLeft>
             </div>
         );
+    }
+
+    componentDidMount() {
+        const getQuotes = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(window.REST_API_URL + 'quote/', getQuotes)
+            .then(response => response.json())
+            .then(data => this.setState({ quotes: data }),);
     }
 }
 
